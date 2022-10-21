@@ -147,6 +147,7 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
       <Button
         my={6}
+        title='enviar'
         isLoading={isSubmitting}
         isDisabled={isSubmitting}
         type='submit'
