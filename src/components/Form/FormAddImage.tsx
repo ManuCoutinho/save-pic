@@ -22,10 +22,17 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const [localImageUrl, setLocalImageUrl] = useState('');
   const toast = useToast();
 
-  const { register, handleSubmit, reset, formState, setError, trigger } = useForm({
-    criteriaMode: 'all'
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState:{ errors, isSubmitting},
+    setError,
+    trigger } = useForm<NewImageData>({
+    criteriaMode: 'all',
+    mode: 'all'
   });
-  const { errors } = formState;
+
 
   const acceptedFormatsRegex =
     /(?:([^:/?#]+):)?(?:([^/?#]*))?([^?#](?:gif|jpeg|png))(?:\?:#(.*))?/g;
@@ -120,10 +127,10 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           setImageUrl={setImageUrl}
           localImageUrl={localImageUrl}
           setLocalImageUrl={setLocalImageUrl}
-          setError={setError}
-          trigger={trigger}
-          error={errors.image}
-          {...register('image', formValidations.image)}
+          setError={() => setError('url', errors.url)}
+          error={errors?.url}
+          trigger={() => trigger('url')}
+          {...register('url', formValidations.image)}
         />
         <TextInput
           placeholder='Título da imagem...'
@@ -140,8 +147,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
       <Button
         my={6}
-        isLoading={formState.isSubmitting}
-        isDisabled={formState.isSubmitting}
+        isLoading={isSubmitting}
+        isDisabled={isSubmitting}
         type='submit'
         w='100%'
         py={6}>

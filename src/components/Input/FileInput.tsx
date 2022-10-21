@@ -75,11 +75,11 @@ const FileInputBase: ForwardRefRenderFunction<
       }
       setImageUrl('');
       setLocalImageUrl('');
-      setError('image', null);
+      setError('url', null);
       setIsSending(true);
 
       await onChange(event);
-      trigger('image');
+      trigger('url');
 
       const formData = new FormData();
 
