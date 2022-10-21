@@ -288,7 +288,7 @@ describe('Home page', () => {
     const addNewImageButton = screen.getByText('Adicionar imagem');
     fireEvent.click(addNewImageButton);
 
-    const fileInput = screen.getByTestId('image') as HTMLInputElement;
+    const fileInput = screen.getByTestId('url') as HTMLInputElement;
     const nameInput = screen.getByRole('textbox', {
       name: 'title'
     }) as HTMLInputElement;
@@ -313,7 +313,7 @@ describe('Home page', () => {
     expect(nameInput).toHaveValue('Rocket League');
     expect(descriptionInput).toHaveValue('Flying forever');
 
-    const submitButton = screen.getByRole('button', { name: 'Enviar' });
+    const submitButton = screen.getByRole('button', { hidden: true, name: /enviar/i });
 
     apiMock.onPost('/api/images').replyOnce(200);
     apiMock.onGet('/api/images').replyOnce(200, {
